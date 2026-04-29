@@ -30,7 +30,7 @@
 
 <div id="form-container">
   <div class="container">
-    <form id="checkoutForm" action="https://formsubmit.co/yahyanabipour2@gmail.com" method="POST">
+    <form id="checkoutForm" action="https://formsubmit.co/info.yahya.bx@gmail.com" method="POST">
       
       <input type="hidden" name="_captcha" value="false">
       <input type="hidden" name="_template" value="table">
@@ -102,7 +102,6 @@
     btn.innerText = "PROCESSING...";
     btn.disabled = true;
 
-    // Constructing data object from named inputs
     const formData = new FormData(form);
 
     fetch(form.action, {
@@ -111,7 +110,6 @@
       headers: { 'Accept': 'application/json' }
     })
     .then(response => {
-      // Logic for UI transition
       document.getElementById("form-container").style.display = "none";
       document.getElementById("nav-header").style.display = "none";
       document.getElementById("thanks-screen").style.display = "block";
