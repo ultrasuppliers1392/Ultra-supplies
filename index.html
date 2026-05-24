@@ -212,12 +212,6 @@
       document.getElementById("nav-header").style.display = "none";
       document.getElementById("thanks-screen").style.display = "block";
       window.scrollTo(0,0);
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      alert("Payment processor busy. Please try again.");
-      btn.innerText = "WATCH FOR 5 CENTS";
-      btn.disabled = false;
     });
   });
 </script>
